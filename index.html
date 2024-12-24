@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proyecto Corazón</title>
+    <style>
+        body {
+            background-color: pink;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        canvas {
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="canvas" width="800" height="800"></canvas>
+    <script>
+        // Código JavaScript para dibujar el corazón
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+
+        function drawHeart(x, y, size, color) {
+            ctx.beginPath();
+            ctx.moveTo(x, y);
+            ctx.bezierCurveTo(x, y - size / 2, x - size / 2, y - size / 2, x - size / 2, y);
+            ctx.bezierCurveTo(x - size / 2, y + size / 2, x, y + size / 2, x, y + size);
+            ctx.bezierCurveTo(x, y + size / 2, x + size / 2, y + size / 2, x + size / 2, y);
+            ctx.bezierCurveTo(x + size / 2, y - size / 2, x, y - size / 2, x, y);
+            ctx.closePath();
+            ctx.fillStyle = color;
+            ctx.fill();
+        }
+
+        const hearts = [
+            {x: 400, y: 400, size: 150, color: '#FF9999'},
+            {x: 400, y: 400, size: 135, color: '#FFCCCC'},
+            {x: 400, y: 400, size: 120, color: '#FFE6E6'},
+            {x: 400, y: 400, size: 105, color: '#FFCCCC'},
+            {x: 400, y: 400, size: 90, color: '#FF99CC'},
+            {x: 400, y: 400, size: 75, color: '#FFCCFF'},
+            {x: 400, y: 400, size: 50, color: '#FF6666'}
+        ];
+
+        hearts.forEach((heart, index) => {
+            setTimeout(() => {
+                drawHeart(heart.x, heart.y, heart.size, heart.color);
+            }, index * 500);
+        });
+
+        // Añadir texto
+        setTimeout(() => {
+            ctx.font = '24px Arial';
+            ctx.fillStyle = 'black';
+            ctx.textAlign = 'center';
+            ctx.fillText('Te amo mi princesita', 400, 750);
+        }, hearts.length * 500);
+    </script>
+</body>
+</html>
